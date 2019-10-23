@@ -1,0 +1,8 @@
+
+lib_src = files('addch.c', 'addchstr.c', 'addstr.c', 'attr.c', 'beep.c',
+'bkgd.c', 'border.c', 'clear.c', 'color.c', 'delch.c', 'deleteln.c',
+'getch.c', 'getstr.c', 'getyx.c', 'inch.c', 'inchstr.c',
+'initscr.c', 'inopts.c', 'insch.c', 'insstr.c', 'instr.c', 'kernel.c',
+'keyname.c', 'mouse.c', 'move.c', 'outopts.c', 'overlay.c', 'pad.c',
+'panel.c', 'printw.c', 'refresh.c', 'scanw.c', 'scr_dump.c', 'scroll.c',
+'slk.c', 'termattr.c', 'touch.c', 'util.c', 'window.c', 'debug.c')
