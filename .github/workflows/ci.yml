@@ -13,7 +13,7 @@ jobs:
         python-version: '3.x'
     - run: pip install meson
     - run: sudo apt install -yq --no-install-recommends ninja-build libxt-dev libxpm-dev libxaw7-dev
-    - run: meson setup build
+    - run: meson setup build --prefix=/tmp/foo
     - run: meson install -C build
     - uses: actions/upload-artifact@v1
       if: failure()

@@ -6,6 +6,7 @@ os = target_machine.system()
 
 incdir = [include_directories('.')]
 
+subdir('common')
 subdir('pdcurses')
 
 deps = []
@@ -25,5 +26,7 @@ curses_lib = library('pdcurses',
   include_directories: incdir,
   dependencies: deps,
   install: true)
+
+install_headers('curses.h', 'curspriv.h', 'panel.h')
 
 subdir('demos')
