@@ -23,6 +23,7 @@ endif
 curses_lib = library('pdcurses',
   sources: [lib_src, pdc_src],
   include_directories: incdir,
-  dependencies: deps)
+  dependencies: deps,
+  install: true)
 
 subdir('demos')

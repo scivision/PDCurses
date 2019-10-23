@@ -43,6 +43,15 @@ Build instructions are in the README.md file for each platform:
 -  [X11]
 
 
+Windows and X11 users can optionally use the Meson build system like:
+
+```sh
+meson build
+
+meson install -C build
+```
+
+
 Distribution Status
 -------------------
 
