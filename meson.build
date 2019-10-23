@@ -5,8 +5,6 @@ project('PDcurses', 'c',
 os = target_machine.system()
 
 incdir = [include_directories('.')]
-# PDCURSES_HEADERS	= files('curspriv.h', 'curses.h')
-# PANEL_HEADER = files('panel.h')
 
 subdir('pdcurses')
 
