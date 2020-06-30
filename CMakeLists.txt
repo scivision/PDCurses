@@ -29,6 +29,9 @@ target_include_directories(pdcurses
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   PUBLIC $<INSTALL_INTERFACE:include>
 )
+add_library(Curses::Curses INTERFACE IMPORTED GLOBAL)
+set_property(TARGET Curses::Curses PROPERTY
+  INTERFACE_LINK_LIBRARIES pdcurses)
 
 add_subdirectory(common)
 add_subdirectory(pdcurses)
