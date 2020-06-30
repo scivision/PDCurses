@@ -26,12 +26,10 @@ endfunction()
 add_library(pdcurses)
 target_public_headers(pdcurses curses.h curspriv.h)
 target_include_directories(pdcurses
-  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  PUBLIC $<INSTALL_INTERFACE:include>
-)
-add_library(Curses::Curses INTERFACE IMPORTED GLOBAL)
-set_property(TARGET Curses::Curses PROPERTY
-  INTERFACE_LINK_LIBRARIES pdcurses)
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<INSTALL_INTERFACE:include>)
+add_library(Curses::Curses ALIAS pdcurses)
 
 add_subdirectory(common)
 add_subdirectory(pdcurses)
