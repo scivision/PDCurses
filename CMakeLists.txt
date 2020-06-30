@@ -24,7 +24,7 @@ function(target_public_headers target)
 endfunction()
 
 add_library(pdcurses)
-target_public_headers(pdcurses curspriv.h)
+target_public_headers(pdcurses curses.h curspriv.h)
 target_include_directories(pdcurses
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   PUBLIC $<INSTALL_INTERFACE:include>
