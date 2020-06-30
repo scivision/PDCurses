@@ -37,8 +37,25 @@ if(WIN32)
   add_subdirectory(wincon)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
   find_package(X11 REQUIRED)
+
+  find_package(PkgConfig REQUIRED)
+
+  # xt.pc is broken on Ubuntu
+  pkg_check_modules(_xt xt)
+
+  find_path(_xt_inc REQUIRED
+  NAMES Intrinsic.h
+  HINTS ${_xt_INCLUDE_DIRS}
+  PATHS /usr/include
+  PATH_SUFFIXES X11)
+
+  pkg_check_modules(_xaw REQUIRED xaw7)
+
+  list(APPEND X11_INCLUDE_DIR ${_xt_inc})
+  list(APPEND X11_LIBRARIES ${_xaw_LIBRARIES})
+
   target_include_directories(pdcurses PRIVATE ${X11_INCLUDE_DIR})
-  target_link_libraries(pdcurses PRIVATE ${X11_LIBRARIES})
+  target_link_libraries(pdcurses PRIVATE ${X11_LIBRARIES} X11::Xt X11::Xpm X11::Xmu)
   add_subdirectory(x11)
 endif()
 
