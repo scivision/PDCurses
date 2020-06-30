@@ -59,6 +59,11 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
   add_subdirectory(x11)
 endif()
 
+if(NOT CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+  # being used from other package
+  return()
+endif()
+
 add_subdirectory(demos)
 
 INSTALL(TARGETS pdcurses
