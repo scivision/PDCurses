@@ -29,7 +29,9 @@ target_include_directories(pdcurses
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   $<INSTALL_INTERFACE:include>)
-add_library(Curses::Curses ALIAS pdcurses)
+
+add_library(CURSES::CURSES ALIAS pdcurses)
+
 
 add_subdirectory(common)
 add_subdirectory(pdcurses)
