@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19...4.2)
+cmake_minimum_required(VERSION 3.19...4.3)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message(FATAL_ERROR "Please use out-of-source build
@@ -51,10 +51,7 @@ $<$<BOOL:${PDCurses_nextaw}>:USE_NEXTAW>
 $<$<CONFIG:Debug,RelWithDebugInfo>:PDCDEBUG>
 )
 
-# for FetchContent (need GLOBAL for the other project to see Curses::Curses)
-add_library(Curses::Curses IMPORTED INTERFACE GLOBAL)
-target_link_libraries(Curses::Curses INTERFACE pdcurses)
-target_include_directories(Curses::Curses INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(Curses::Curses ALIAS pdcurses)
 
 check_symbol_exists("vsnprintf" "stdio.h" HAVE_VSNPRINTF)
 check_symbol_exists("vsscanf" "stdio.h" HAVE_VSSCANF)

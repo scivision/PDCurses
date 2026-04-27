@@ -14,9 +14,6 @@ on:
   release:
     types: [published]
 
-env:
-  CTEST_NO_TESTS_ACTION: error
-  CTEST_PARALLEL_LEVEL: 0
 
 jobs:
 
@@ -24,17 +21,11 @@ jobs:
 
     strategy:
       matrix:
-        cc: [gcc-14, clang-18]
         os: [ubuntu-latest]
-        include:
-        - os: macos-latest
-          cc: clang
+# mac, clang etc. work, just saving CI time
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
-
-    env:
-      CC: ${{ matrix.cc }}
 
     steps:
 
@@ -49,25 +40,17 @@ jobs:
       run: brew install libxt libxaw libx11
 
     - &checkout
-      uses: actions/checkout@v5
-
-    - name: CMake configure
-      run: cmake -B build --install-prefix=${{ runner.temp }} -DCOMPILE_WARNING_AS_ERROR=ON
+      uses: actions/checkout@v6
 
     - name: CMake build
-      run: cmake --build build
+      run: cmake --workflow build
 
     - name: CMake install (for examples)
       run: cmake --install build
 
-    - name: CMake configure examples
-      run: cmake -B builddemos -S demos -DPDCurses_ROOT:PATH=${{ runner.temp }}
-
-    - name: CMake build examples
-      run: cmake --build builddemos
-
-    - name: CTest
-      run: ctest --test-dir builddemos --output-on-failure
+    - name: CMake example build and test
+      working-directory: demos
+      run: cmake --workflow default
 
     - &cpack
       name: Create package
@@ -77,33 +60,28 @@ jobs:
     - &upload_pkg
       name: Upload package
       if: github.event.action == 'published'
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ runner.os }}-pkg
         path: build/package
 
 
   windows:
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     timeout-minutes: 10
 
     steps:
     - *checkout
 
-    - name: CMake configure
-      run: cmake -B build --install-prefix=${{ runner.temp }}
-
     - name: CMake build
-      run: cmake --build build --config Release
+      run: cmake --workflow msvc-build
 
     - name: CMake install (for examples)
       run: cmake --install build --config Release
 
     - name: CMake configure examples
-      run: cmake -B demos/build -S demos -DPDCurses_ROOT:PATH=${{ runner.temp }}
-
-    - name: CMake build examples
-      run: cmake --build demos/build
+      working-directory: demos
+      run: cmake --preset msvc
 
     - *cpack
 
@@ -115,17 +93,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: open-watcom/setup-watcom@v0
+    - uses: open-watcom/setup-watcom@v1
       with:
         version: "2.0"
+        target: "dos"
 
     - *checkout
 
-    - name: Configure
-      run: cmake -Bbuild --toolchain cmake/dos.cmake --install-prefix=${{ runner.temp }}
-
-    - name: Build
-      run: cmake --build build
+    - name: CMake build
+      run: cmake --workflow dos
 
     - name: CMake install (for examples)
       run: cmake --install build
