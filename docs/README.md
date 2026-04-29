@@ -26,8 +26,7 @@ or CMake.
 To build with CMake:
 
 ```sh
-cmake -B build
-cmake --build build
+cmake --workflow build
 ```
 
 optionally, install the library binary and headers:
@@ -40,8 +39,8 @@ cmake --install build
 
 If using X11, install X11 like:
 
-* Linux: `apt install --no-install-recommends libxt-dev libxaw7-dev libx11-dev`
-* macOS: `brew install xorgproto libxt libxaw libx11 pkgconf`
+* Linux: `apt install --no-install-recommends libxt-dev libxaw7-dev libxpm-dev libxmu-dev libx11-dev`
+* macOS: `brew install xorgproto libxt libxaw libx11 libxpm libxmu pkgconf`
 
 - To rebuild MANUAL.md from the "man page" sections of the source code,
   type "./mkman.sh". Needs a Unix-like shell and an Awk interpreter.

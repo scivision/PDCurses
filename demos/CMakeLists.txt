@@ -24,6 +24,7 @@ file(GENERATE OUTPUT .gitignore CONTENT "*")
 add_test(NAME Init COMMAND test_init)
 set_tests_properties(Init PROPERTIES
 SKIP_REGULAR_EXPRESSION "Can't open display|no DISPLAY variable set"
+SKIP_RETURN_CODE 77
 )
 
 # Note: using STDIN INPUT_FILE for CTest doesn't work as Curses wants an actual keypress, not pipe.

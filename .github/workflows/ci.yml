@@ -2,14 +2,6 @@ name: CI for CMake
 
 on:
   push:
-    paths:
-      - "**/CMakeLists.txt"
-      - "**.cmake"
-      - "**.cmake.in"
-      - "**.c"
-      - "**.h"
-      - "**.h.in"
-      - ".github/workflows/ci.yml"
   pull_request:
   release:
     types: [published]
@@ -33,11 +25,11 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt update
-        sudo apt install --no-install-recommends libxt-dev libxaw7-dev libx11-dev
+        sudo apt install --no-install-recommends libxt-dev libxaw7-dev libxpm-dev libxmu-dev libx11-dev
 
     - name: install prereqs (macOS)
       if: runner.os == 'macOS'
-      run: brew install libxt libxaw libx11
+      run: brew install libxt libxaw libx11 libxpm libxmu
 
     - &checkout
       uses: actions/checkout@v6
