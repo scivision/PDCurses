@@ -61,7 +61,7 @@ $<$<BOOL:${HAVE_VSNPRINTF}>:HAVE_VSNPRINTF>
 $<$<BOOL:${HAVE_VSSCANF}>:HAVE_VSSCANF>
 )
 
-if(sdl)
+if(PDCurses_sdl)
   find_package(SDL2 CONFIG REQUIRED)
 
   target_link_libraries(pdcurses PRIVATE SDL2::SDL2)
